@@ -24,7 +24,7 @@ s.waitForBoot{
 //s.makeWindow;
 s.meter;
 ~tempo=1;
-~orange=2;
+~orange=6;
 ~mass=10.pow(45.neg);
 ~fftsize = 64*128;
 TempoClock.default.tempo_(~tempo);
@@ -504,7 +504,10 @@ TempoClock.default.tempo_(1);
 ~sq= Routine({loop{
 //thisThread.randSeed = ~val;
 ~incr=(~incr+(2pi-(2pi/~s))).wrap(pi,pi.neg);
-		~pattern = Pdef(\1,
+  ~seq.next.wait;
+}}));
+			(
+					~pattern = Pdef(\1,
     Pbind(
         \instrument, \synth,
         \dur, Pseq(~dur, inf),
@@ -517,7 +520,7 @@ TempoClock.default.tempo_(1);
         \el, Pfunc { ~incr / 2 },
 
         \attack, 0.01,
-        \dicay, 8,
+        \dicay, 4,
 
         \scalee, Pfunc { ~scalee },
         \harmonic, Pfunc { ~harmonic },
@@ -544,11 +547,8 @@ TempoClock.default.tempo_(1);
         \spread, Pfunc { ~spread },
         \limit, Pfunc { ~limit },
 
-        \fu, Pfunc { ~fu }
-    )
-);
-  ~seq.next.wait;
-}}));
+        \fu, Pfunc { ~fu })
+			));
 			(
 					~sq.play;
 					~pattern.play;
@@ -758,9 +758,9 @@ if(~synth.isPlaying,{~synth.set(\comp,b)});
 						if(~synth.isPlaying,{~synth.set(\harmonic,a)});
 					},24);
 				);
-				))
+				));
 
-			TempoClock.default.tempo_(1/4);
+			TempoClock.default.tempo_(1);
 
 	}); Tdef(\drone).play;
 })
