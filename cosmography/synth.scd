@@ -24,7 +24,7 @@ s.waitForBoot{
 //s.makeWindow;
 s.meter;
 ~tempo=1;
-~orange=6;
+~orange=3;
 ~mass=10.pow(45.neg);
 ~fftsize = 64*128;
 TempoClock.default.tempo_(~tempo);
@@ -499,7 +499,7 @@ bank.do{ ~dur3=~dur3++~dz.[n];n=n+1;};n=0;
 ~s=(1+2.sqrt);
 ~seq= Pseq(~dur ,inf).asStream;
 ~val=1234;
-TempoClock.default.tempo_(1);
+TempoClock.default.tempo_(4);
 (
 ~sq= Routine({loop{
 //thisThread.randSeed = ~val;
@@ -520,7 +520,7 @@ TempoClock.default.tempo_(1);
         \el, Pfunc { ~incr / 2 },
 
         \attack, 0.01,
-        \dicay, 4,
+        \dicay, 1,
 
         \scalee, Pfunc { ~scalee },
         \harmonic, Pfunc { ~harmonic },
@@ -554,6 +554,7 @@ TempoClock.default.tempo_(1);
 					~pattern.play;
 			)
 		);
+		~orange=4;
 		(
 			MIDIClient.init;
 			MIDIIn.connectAll;
@@ -599,7 +600,7 @@ TempoClock.default.tempo_(1);
 						var a;
 						a=val.linlin(0,127,0,1).round(1).asInteger;
 						a.postln;
-						~scale=a;
+						~scalee=a;
 						if(~synth.isPlaying,{~synth.set(\scalee,a)});
 					},6);
 				);
@@ -624,7 +625,7 @@ TempoClock.default.tempo_(1);
 				(
 					MIDIdef.cc(\midi_pot9,{ |val, num, chan, src|
 						var a;
-						a=val.linexp(0,127,1,4);
+						a=val.linexp(0,127,1,2);
 						a.postln;
 						~dyn=a;
 						if(~synth.isPlaying,{~synth.set(\dyn,a)});
@@ -697,7 +698,7 @@ TempoClock.default.tempo_(1);
 (
 MIDIdef.cc(\midi_pot17,{ |val, num, chan, src|
 var a,b;
-a=val.linlin(0,127,20.neg,12);
+a=val.linlin(0,127,10.neg,30);
 b=10.pow(a);
 b.postln;
 ~comp=b;
