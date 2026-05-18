@@ -129,7 +129,7 @@ var nn=1.neg;
 SynthDef.new(\synth,{
 
 arg gain=1,drive=0,c=0,az=0,el=0,scalee=0,lowend=64,level=100,speaker_size=0.15,tone_axis=0,ran=0,rect_level=1,harmonic=1,
-				bg1=1,bg2=1,bg3=1,bg4=1,bg5=1,bg6=1,bg7=1,bg8=1,bg9=1,fl=40,attack=0.01,decay=4,curv=4.neg,
+				bg1=1,bg2=1,bg3=1,bg4=1,bg5=1,bg6=1,bg7=1,bg8=1,bg9=1,fl=40,attack=0.01,dicay=4,curv=4.neg,
 				room=0.5,mix=0.5,pan_mod=0.01,spread=1,limit=0.8,fu=32,dyn=1,band=0.000001,comp=1,buffer=1,sphharm=1;
 
 var expansion,heavy,fundamental,sph_mod,polytope,bessel_ripple,magx,magy,magz,sph,mod_timbre,mass=~mass;
@@ -149,8 +149,8 @@ var frames=~fftsize, chain1,chain2,chain3,bins,env1,env2,env3,gate1,gate2,gate3;
 var dry1,dry2,dry3,chain11,chain22,chain33,sig11,sig22,sig33;
 var n=0,verb1,verb2,verb3,threshold,env;
 
-//env=EnvGen.ar(Env.perc(attack,decay,curve:curv),doneAction:2);
-env=EnvGen.ar(Env.sine(decay),doneAction:2);
+//env=EnvGen.ar(Env.perc(attack,dicay,curve:curv),doneAction:2);
+env=EnvGen.ar(Env.sine(dicay),doneAction:2);
 pan=2.pow(pan_mod.lag(0.001)/16256);
 ph = (2pi-(2pi/s));
 heavy=2.pow(drive.lag(0.001)/16256);
@@ -633,7 +633,7 @@ bank.do{ ~dur3=~dur3++~dz.[n];n=n+1;};n=0;
 				\pan_mod,Pbrown((16256*10).neg,(16256*0),exp(3).round(1).asInteger,inf),\spread,Pbrown(0.05,1,exp(3.neg),inf),
 				\limit,Pbrown(0.5,1,exp(4.neg),inf),
 				\fu,32,\band,Pbrown(0.000001,1,exp(8.neg),inf),\attack,Pbrown(1/64,0.1,0.01,inf),
-				\decay,Pbrown(24,32,0.1,inf),\curv,Pbrown(2.neg,8.neg,0.1,inf);
+				\dicay,Pbrown(24,32,0.1,inf),\curv,Pbrown(2.neg,8.neg,0.1,inf);
 	)));
 		2.wait;
 		~pattern.play;
