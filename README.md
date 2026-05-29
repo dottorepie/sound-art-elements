@@ -3,7 +3,7 @@
  //for standalone put init file content in SC startup file,
   install Mathilib quark, optionally SC plugins
 
-  
+////for normal results replace LPF on the oscillators (sig) with BPF and set heavy arg as rq not freq multiplier  
 ///basic synthesis components derived from work on previous repository:
 
 -cosmic sound engine envelope///
